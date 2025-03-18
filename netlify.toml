@@ -1,0 +1,6 @@
+[build]
+  command = "npm run build"  # or `yarn build` if you're using yarn
+  publish = "frontend/build"  # Replace with the correct build directory of your front-end
+
+[functions]
+  directory = "netlify/functions"  # Directory where your serverless functions are stored
