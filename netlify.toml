@@ -1,6 +1,6 @@
 [build]
-  command = "npm --prefix frontend run build"  # Build the front-end in the 'frontend' directory
-  publish = "frontend/build"                   # Publish the built files to the 'frontend/build' directory
+  command = ""  
+  publish = "frontend"                  
 
 [functions]
   directory = "netlify/functions"  # Point to the 'functions' directory for your serverless functions
