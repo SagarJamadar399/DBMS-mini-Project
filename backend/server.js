@@ -30,27 +30,79 @@ db.connect((err) => {
     }
 });
 
-// API Route: Add Product
-app.post("/addProduct", (req, res) => {
-    const { name, category, supplier, quantity, price } = req.body;
+// API Route: Add Student
+app.post("/addStudent", (req, res) => {
+    const { first_name, last_name, email, enrollment_date } = req.body;
 
-    const sql = `INSERT INTO Products (name, category_id, supplier_id, quantity_in_stock, price) 
-                 VALUES (?, 
-                        (SELECT category_id FROM Categories WHERE category_name=? LIMIT 1), 
-                        (SELECT supplier_id FROM Suppliers WHERE supplier_name=? LIMIT 1), 
-                        ?, ?)`;
+    const sql = `INSERT INTO Students (first_name, last_name, email, enrollment_date) 
+                 VALUES (?, ?, ?, ?)`;
 
-    db.query(sql, [name, category, supplier, quantity, price], (err, result) => {
+    db.query(sql, [first_name, last_name, email, enrollment_date], (err, result) => {
         if (err) {
             return res.status(500).json({ error: err.message });
         }
-        res.status(200).json({ message: "Product added successfully!" });
+        res.status(200).json({ message: "Student added successfully!" });
     });
 });
 
-// API Route: Get Products
-app.get("/products", (req, res) => {
-    db.query("SELECT * FROM Products", (err, results) => {
+// API Route: Add Course
+app.post("/addCourse", (req, res) => {
+    const { course_name, course_code, credits } = req.body;
+
+    const sql = `INSERT INTO Courses (course_name, course_code, credits) 
+                 VALUES (?, ?, ?)`;
+
+    db.query(sql, [course_name, course_code, credits], (err, result) => {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        res.status(200).json({ message: "Course added successfully!" });
+    });
+});
+
+// API Route: Enroll Student in Course
+app.post("/enrollStudent", (req, res) => {
+    const { student_id, course_id, enrollment_date } = req.body;
+
+    const sql = `INSERT INTO Enrollments (student_id, course_id, enrollment_date) 
+                 VALUES (?, ?, ?)`;
+
+    db.query(sql, [student_id, course_id, enrollment_date], (err, result) => {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        res.status(200).json({ message: "Student enrolled successfully!" });
+    });
+});
+
+// API Route: Get Students
+app.get("/students", (req, res) => {
+    db.query("SELECT * FROM Students", (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        res.status(200).json(results);
+    });
+});
+
+// API Route: Get Courses
+app.get("/courses", (req, res) => {
+    db.query("SELECT * FROM Courses", (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        res.status(200).json(results);
+    });
+});
+
+// API Route: Get Enrollments
+app.get("/enrollments", (req, res) => {
+    const sql = `SELECT e.enrollment_id, s.first_name, s.last_name, c.course_name, e.enrollment_date
+                 FROM Enrollments e
+                 JOIN Students s ON e.student_id = s.student_id
+                 JOIN Courses c ON e.course_id = c.course_id`;
+
+    db.query(sql, (err, results) => {
         if (err) {
             return res.status(500).json({ error: err.message });
         }

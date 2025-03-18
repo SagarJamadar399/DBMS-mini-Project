@@ -1,43 +1,29 @@
-document.getElementById("productForm").addEventListener("submit", function (event) {
-    event.preventDefault();
+document.getElementById('addStudentForm').addEventListener('submit', function (e) {
+    e.preventDefault();
 
-    let formData = {
-        name: this.name.value,
-        category: this.category.value,
-        supplier: this.supplier.value,
-        quantity: this.quantity.value,
-        price: this.price.value
-    };
+    const first_name = document.getElementById('first_name').value;
+    const last_name = document.getElementById('last_name').value;
+    const email = document.getElementById('email').value;
+    const enrollment_date = document.getElementById('enrollment_date').value;
 
-    fetch("http://localhost:5000/addProduct", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData)
-    })
+    fetch('/.netlify/functions/addStudent', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          first_name: "John",
+          last_name: "Doe",
+          email: "john.doe@example.com",
+          enrollment_date: "2025-03-18",
+        }),
+      })
+      
     .then(response => response.json())
     .then(data => {
-        document.getElementById("responseMessage").innerText = data.message;
-        this.reset();
-        fetchProducts();  // Refresh the product list
+        alert(data.message);
     })
-    .catch(error => console.error("Error:", error));
+    .catch(error => {
+        console.error('Error:', error);
+    });
 });
-
-// Fetch products from the database
-function fetchProducts() {
-    fetch("http://localhost:5000/products")
-    .then(response => response.json())
-    .then(data => {
-        const productList = document.getElementById("productList");
-        productList.innerHTML = "";  // Clear the list
-        data.forEach(product => {
-            let li = document.createElement("li");
-            li.className = "list-group-item";
-            li.textContent = `${product.name} - ${product.quantity_in_stock} pcs - $${product.price}`;
-            productList.appendChild(li);
-        });
-    })
-    .catch(error => console.error("Error fetching products:", error));
-}
-
-fetchProducts();  // Load products on page load

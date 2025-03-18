@@ -9,30 +9,26 @@
 <body>
     <div class="container mt-5">
         <h2 class="text-center">Add Product</h2>
-        <form id="productForm">
-            <div class="mb-3">
-                <label class="form-label">Product Name</label>
-                <input type="text" class="form-control" name="name" required>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Category</label>
-                <input type="text" class="form-control" name="category" required>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Supplier</label>
-                <input type="text" class="form-control" name="supplier" required>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Quantity</label>
-                <input type="number" class="form-control" name="quantity" required>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Price</label>
-                <input type="number" class="form-control" name="price" step="0.01" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Add Product</button>
-        </form>
+       <!-- Add Student Form -->
+<form id="addStudentForm">
+    <label for="first_name">First Name:</label>
+    <input type="text" id="first_name" name="first_name" required>
+    <br>
 
+    <label for="last_name">Last Name:</label>
+    <input type="text" id="last_name" name="last_name" required>
+    <br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+    <br>
+
+    <label for="enrollment_date">Enrollment Date:</label>
+    <input type="date" id="enrollment_date" name="enrollment_date" required>
+    <br>
+
+    <button type="submit">Add Student</button>
+</form>
         <h3 class="mt-5">Inventory List</h3>
         <ul id="productList" class="list-group"></ul>
 
