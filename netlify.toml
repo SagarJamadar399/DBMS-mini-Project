@@ -1,6 +1,6 @@
 [build]
   command = ""  
-  publish = "frontend"                  
+  publish = "frontend/public"                  
 
 [functions]
   directory = "netlify/functions"  # Point to the 'functions' directory for your serverless functions
