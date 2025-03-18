@@ -18,7 +18,34 @@ document.getElementById('addStudentForm').addEventListener('submit', function (e
           enrollment_date: "2025-03-18",
         }),
       })
-      
+
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+});
+
+document.getElementById('enrollStudentForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const student_id = document.getElementById('student_id').value;
+    const course_id = document.getElementById('course_id').value;
+    const enrollment_date = document.getElementById('enrollment_date').value;
+
+    fetch('http://localhost:5000/enrollStudent', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            student_id,
+            course_id,
+            enrollment_date,
+        }),
+    })
     .then(response => response.json())
     .then(data => {
         alert(data.message);
