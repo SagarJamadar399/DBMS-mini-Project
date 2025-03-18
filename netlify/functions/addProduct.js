@@ -2,11 +2,18 @@ const mysql = require("mysql");
 require("dotenv").config();
 
 // MySQL Database Connection
+// const db = mysql.createConnection({
+//     host: process.env.DB_HOST,
+//     user: process.env.DB_USER,
+//     password: process.env.DB_PASS,
+//     database: process.env.DB_NAME
+// });
+
 const db = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_NAME
+    host: "bw4ru7ftqsdasjkamdbp-mysql.services.clever-cloud.com",
+    user: "u5mhsaywuymm6bw5",
+    password: "nod2CR9teuQm0RABlKcs",
+    database: "bw4ru7ftqsdasjkamdbp"
 });
 
 db.connect((err) => {
